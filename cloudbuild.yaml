@@ -7,13 +7,22 @@ steps:
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/kubernetes-projects-448514/runimage']
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  args :
+  - 'set'
+  - 'image'
+  - 'deployment/deployment-1'
+  - 'runimage-sha256-1=gcr.io/kubernetes-projects-448514/runimage'
+  env : 
+  - 'CLOUDSDK_COMPUTE_REGION=asia-southeast1'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-1'
 # Deploy container image to Cloud Run
 # - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
 #   entrypoint: gcloud
 #   args: ['run', 'deploy', 'runwithcicd', '--image', 'gcr.io/kubernetes-projects-448514/runimage', '--region', 'us-central1', '--allow-unauthenticated']
 images:
 - gcr.io/kubernetes-projects-448514/runimage
-
 options:
   logging: CLOUD_LOGGING_ONLY
 
