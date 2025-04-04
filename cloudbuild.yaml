@@ -17,6 +17,7 @@ steps:
   env : 
   - 'CLOUDSDK_COMPUTE_REGION=asia-southeast1'
   - 'CLOUDSDK_CONTAINER_CLUSTER=autopilot-cluster-1'
+  - 'KUBE_NAMESPACE=cicd'
 # Deploy container image to Cloud Run
 # - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
 #   entrypoint: gcloud
