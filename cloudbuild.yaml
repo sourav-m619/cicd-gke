@@ -1,0 +1,20 @@
+steps:
+- name: 'gcr.io/cloud-builders/git'
+  args: ['clone', 'https://github.com/sourav-m619/cicd-gke.git']
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/kubernetes-projects-448514/runimage', '.']
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/kubernetes-projects-448514/runimage']
+# Deploy container image to Cloud Run
+# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#   entrypoint: gcloud
+#   args: ['run', 'deploy', 'runwithcicd', '--image', 'gcr.io/kubernetes-projects-448514/runimage', '--region', 'us-central1', '--allow-unauthenticated']
+images:
+- gcr.io/kubernetes-projects-448514/runimage
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+timeout: 1600s
